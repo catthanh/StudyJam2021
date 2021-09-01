@@ -11,6 +11,11 @@ You must install [Beautiful Soup](https://www.crummy.com/software/BeautifulSoup/
 ```bash
 pip install beautifulsoup4
 ```
+in.csv format:
+|email|name|profile_qwiklabs|
+|-----|----|-----------------|
+|example@e.com|Ironman sucks|https://www.qwiklabs.com/public_profiles/xxxxxxxx-1eaa-4e3f-801a-4e611cf8da42|
+|example@e.net|Batman is cool|https://www.qwiklabs.com/public_profiles/xxxxxxxx-1eaa-4e3f-801a-4e611cf8da42|
 to run the script
 ```bash
 python check.py
