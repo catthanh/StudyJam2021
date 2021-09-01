@@ -12,6 +12,7 @@ ctx.verify_mode = ssl.CERT_NONE
 
 inputFile = "in.csv"
 outputFile = "out.csv"
+invalidFile = "invalid.csv"
 
 acceptedCourses = ["Serverless Firebase Development",
                    "Deploy to Kubernetes in Google Cloud",
@@ -25,15 +26,16 @@ acceptedCourses = ["Serverless Firebase Development",
 fields = []
 rows = []
 # import data
-with open(inputFile) as inp:
+with open(inputFile, encoding='utf-8') as inp:
     csvreader = csv.reader(inp)
     fields = next(csvreader)
     for row in csvreader:
         rows.append(row)
-    print("Total no. of rows: %d" % (csvreader.line_num))
+    print("Total no. of rows: %d" % (len(rows)-1))
 
 newRows = []
 newFields = ['name', 'email']
+invalidRows = []
 
 for row in rows:
     url = row[2]
@@ -57,9 +59,18 @@ for row in rows:
         newRow.append(row[1])
         newRow.append(row[0])
         newRows.append(newRow)
+    else:
+        invalidRows.append(row)
+
+
 # export accepted data
 with open(outputFile, 'w', newline='', encoding='utf-8') as out:
     csvwriter = csv.writer(out)
     csvwriter.writerow(newFields)
     csvwriter.writerows(newRows)
-print()
+# export invalid data
+with open(invalidFile, 'w', newline='', encoding='utf-8') as out2:
+    csvwriter = csv.writer(out2)
+    csvwriter.writerow(fields)
+    csvwriter.writerows(invalidRows)
+print("Total no. of accepted rows: %d/%d" % (len(newRows), len(rows)))
